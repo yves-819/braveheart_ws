@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- braveheart -->
+  <include file="$(find braveheart_base)/launch/braveheart_base.launch"/>
+  
+  <!--文件保存目录-->
+  <arg name="direction" default="$(find braveheart_base)/config" />
+  <!--精度，此处为pwm数据递增的速度，精度越小，测试需要的时间越长-->
+  <arg name="accuracy" default="128" />
+  <!--停留时间，此处为等待电机速度调整至稳态所需的时间(s)，时间越长，测量结果越精确-->
+  <arg name="duration" default="2.0" />
+
+  <node pkg="braveheart_base" type="debug_node.py" name="braveheart_debug_node" output="screen" respawn="false">
+    <param name="direction" type="string" value="$(arg direction)"/>
+    <param name="accuracy" type="int" value="$(arg accuracy)"/>
+    <param name="duration" type="double" value="$(arg duration)"/>
+  </node>
+</launch>

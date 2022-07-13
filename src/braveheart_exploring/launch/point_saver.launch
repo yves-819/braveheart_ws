@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="braveheart_exploring" name="point_saver" type="point_saver.py" output="screen"/>
+</launch>

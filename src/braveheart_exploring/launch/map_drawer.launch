@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="braveheart_exploring" name="map_drawer" type="map_drawer.py" output="screen"/>
+</launch>

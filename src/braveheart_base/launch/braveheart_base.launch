@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- braveheart -->
+  <arg name="serialport_name" default="/dev/base_serial" /><!--串口名-->
+  <arg name="baudrate" default="9600" /><!--波特率-->
+  <arg name="reduction" default="100" /><!--电机减速比-->
+  <arg name="wheel_radius" default="0.062" /><!--轮子半径 m-->
+  <arg name="base_width" default="0.45" /><!--轮子间距 m-->
+  <arg name="PPR" default="11" /><!--编码器线数-->
+  <arg name="QPR" default="44" /><!--PPR*4  编码器转一圈获得脉冲数量-->
+
+  
+
+  <node pkg="braveheart_base" type="motor_node" name="braveheart_motor_node" output="screen" respawn="true">
+    <param name="serialport_name" type="string" value="$(arg serialport_name)"/>
+    <param name="baudrate" type="int" value="$(arg baudrate)"/>
+    <param name="reduction" type="int" value="$(arg reduction)"/>
+    <param name="wheel_radius" type="double" value="$(arg wheel_radius)"/>
+    <param name="base_width" type="double" value="$(arg base_width)"/>
+    <param name="PPR" type="int" value="$(arg PPR)"/>
+    <param name="QPR" type="int" value="$(arg QPR)"/>
+  </node>
+  
+    <!--IMU -->
+  <include file="$(find sensor_imu)/launch/sensor_imu.launch"/>
+
+  <!--包含融合节点 和 转换节点-->
+  <include file="$(find robot_pose_ekf)/launch/robot_pose_ekf.launch"/>
+</launch>

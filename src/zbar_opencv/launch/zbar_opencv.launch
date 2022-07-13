@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="zbar_opencv" pkg="zbar_opencv" type="zbar_opencv" />
+  <!--node name="test1" pkg="zbar_opencv" type="test1" />
+  <node name="camera1" pkg="zbar_opencv" type="camera1" output="screen" /-->
+
+</launch>

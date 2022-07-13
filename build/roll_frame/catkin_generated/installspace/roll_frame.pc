@@ -1,0 +1,8 @@
+prefix=/home/sz/braveheart_ws/install
+
+Name: roll_frame
+Description: Description of roll_frame
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/sz/braveheart_ws/install/lib 
+Requires: 

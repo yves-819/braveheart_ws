@@ -1,0 +1,2 @@
+base_local_planner:braveheart_base:braveheart_bringup:braveheart_description:braveheart_exploring:braveheart_sensor/joy_control:braveheart_sensor/mbot_teleop:braveheart_sensor/robot_vision:braveheart_sensor/sensor_imu:braveheart_sensor/ydlidar:dwa_local_planner:global_planner:move_base:navfn:robot_pose_ekf:zbar_opencv
+-DCATKIN_DEVEL_PREFIX=/home/yves/桌面/braveheart_ws/devel -DCMAKE_INSTALL_PREFIX=/home/yves/桌面/braveheart_ws/install -G Unix Makefiles

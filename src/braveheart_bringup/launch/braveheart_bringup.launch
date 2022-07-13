@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- braveheart_motor 里面包含imu驱动，ekf融合以及odom_ekf转换 -->
+  <include file="$(find braveheart_base)/launch/braveheart_base.launch"/>
+
+  <!--tf-->
+  <include file="$(find braveheart_description)/launch/braveheart_description.launch"/>
+
+  <!--EAI X4-->
+  <include file="$(find ydlidar)/launch/lidar.launch"/>
+
+  <!--gmapping-->
+  <include file="$(find braveheart_exploring)/launch/gmapping.launch"/>
+
+  <!--move_base-->
+  <!--include file="$(find braveheart_exploring)/launch/move_base.launch"/-->
+
+  <!--地图保存-->
+  <!--include file="$(find braveheart_exploring)/launch/map_drawer.launch"/-->
+
+  <!--摄像头启动 和二维码识别-->
+  <!--include file="$(find robot_vision)/launch/usb_cam_with_calibration.launch"/>
+  <include file="$(find zbar_opencv)/launch/zbar_opencv.launch"/-->
+  
+</launch>

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- support multi sensor in one master -->
+    <arg name="sensor_name" default=""/>   <!-- support multi robot -->
+    <arg name="port" default="sensor_imu"/>
+    <arg name="device_frame"       default="imu_module_frame" />
+    <!-- frame -->
+    <arg name="imu_frame"       default="imu_frame" /> 
+    <arg name="mag_frame"       default="mag_frame" />    
+    <!-- pub topic -->
+    <arg name="imu_topic"       default="imu" />
+    <arg name="mag_topic"       default="mag" />
+    <!-- topic freq -->
+    <arg name="imu_freq"       default="30" />
+    <arg name="mag_freq"       default="70" />
+    <arg name="gravity"       default="true" />
+    <!--ros namespace name can NOT be empty,so need evaluate use multi robot or not-->
+    <group if="$(eval sensor_name == '')">
+        <node name="sensor_imu"   pkg="sensor_imu"  type="sensor_imu.py" output="screen">
+            <param name="baudrate"   value="115200"/>  
+            <param name="port"  value='/dev/$(arg port)'/>
+            <param name="imu_id"    value="$(arg imu_frame)"/>      <!-- imu link name -->
+            <param name="imu_topic" value="$(arg imu_topic)"/>      <!-- topic name -->
+            <param name="imu_freq" value="$(arg imu_freq)"/>        <!-- topic freq -->
+
+            <param name="mag_id"    value="$(arg mag_frame)"/>      <!-- link name -->
+            <param name="mag_topic" value="$(arg mag_topic)"/>      <!-- topic name -->
+            <param name="mag_freq" value="$(arg mag_freq)"/>        <!-- topic freq -->
+
+            <param name="gravity" value="$(arg gravity)"/>          <!-- use gravity -->
+        </node>
+        <!--node pkg="tf" type="static_transform_publisher" name="base_to_imu"
+            args="0.007 0.0 0.0 0.0 0.0 0.0 $(arg device_frame) $(arg imu_frame) 20">
+        </node>
+        <node pkg="tf" type="static_transform_publisher" name="module_to_mag"
+            args="0.007 0.0 0.0 0.0 0.0 0.0 $(arg device_frame) $(arg mag_frame) 20">
+        </node-->
+    </group>
+
+    <!--多机器人时使用-->
+    <group unless="$(eval sensor_name == '')">
+        <group ns="$(arg sensor_name)">
+            <node name="sensor_imu"   pkg="sensor_imu"  type="sensor_imu.py" output="screen">
+                <param name="baudrate"   value="115200"/>  
+                <param name="port"  value='/dev/$(arg port)'/>
+                <param name="imu_id"    value="$(arg sensor_name)/$(arg imu_frame)"/>      <!-- imu link name -->
+                <param name="imu_topic" value="$(arg imu_topic)"/>      <!-- topic name -->
+                <param name="imu_freq" value="$(arg imu_freq)"/>        <!-- topic freq -->
+
+                <param name="mag_id"    value="$(arg sensor_name)/$(arg mag_frame)"/>      <!-- link name -->
+                <param name="mag_topic" value="$(arg mag_topic)"/>      <!-- topic name -->
+                <param name="mag_freq" value="$(arg mag_freq)"/>        <!-- topic freq -->
+                <param name="gravity" value="$(arg gravity)"/>          <!-- use gravity -->
+            </node>
+            <node pkg="tf" type="static_transform_publisher" name="module_to_imu"
+                args="0.007 0.0 0.0 0.0 0.0 0.0 $(arg sensor_name)/$(arg device_frame) $(arg sensor_name)/$(arg imu_frame) 20">
+            </node>
+            <!--node pkg="tf" type="static_transform_publisher" name="module_to_mag"
+                args="0.007 0.0 0.0 0.0 0.0 0.0 $(arg sensor_name)/$(arg device_frame) $(arg sensor_name)/$(arg mag_frame) 20">
+            </node-->
+        </group>
+    </group>
+
+    <node name="imu_frame" pkg="tf" type="static_transform_publisher" args="0.007 0 0.27 0 0 0 /base_link /imu_frame 20"/>
+
+</launch>
+
+
+<!--header: 
+  seq: 59
+  stamp: 
+    secs: 1605382572
+    nsecs: 827505111
+  frame_id: "imu_frame"
+
+orientation: 
+  x: 0.0121292052791
+  y: 0.0270633660257
+  z: -0.000151540152729
+  w: 0.999559819698
+orientation_covariance: [1000000.0, 0.0, 0.0, 0.0, 1000000.0, 0.0, 0.0, 0.0, 1e-06]
+
+angular_velocity: 
+  x: -0.00241349078715
+  y: 0.00332895270549
+  z: -0.00103197537828
+angular_velocity_covariance: [1000000.0, 0.0, 0.0, 0.0, 1000000.0, 0.0, 0.0, 0.0, 1e-06]
+
+
+linear_acceleration: 
+  x: -0.552685546875
+  y: 0.21533203125
+  z: 9.80717773438
+linear_acceleration_covariance: [-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]-->
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+prefix=/home/sz/braveheart_ws/install
+
+Name: braveheart_description
+Description: Description of braveheart_description
+Version: 1.0.0
+Cflags: 
+Libs: -L/home/sz/braveheart_ws/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/sz/braveheart_ws/devel
+
+Name: braveheart_base
+Description: Description of braveheart_base
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/sz/braveheart_ws/devel/lib 
+Requires: 
